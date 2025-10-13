@@ -1,6 +1,16 @@
 import { createBrowserRouter } from "react-router";
 import { App } from "../main/App";
-import { MainPage, ProfilePage } from "../pages";
+import {
+  EventPage,
+  EventsListPage,
+  MainPage,
+  OrderPage,
+  OrdersListPage,
+  ProductsListPage,
+  ProfilePage,
+  UserEventPage,
+  UserEventsListPage,
+} from "../pages";
 import { ProductPage } from "../pages/ProductPage/ProductPage";
 
 export const router = createBrowserRouter([
@@ -9,8 +19,32 @@ export const router = createBrowserRouter([
     element: <App />,
     children: [
       { path: "", element: <MainPage /> },
-      { path: "profile", element: <ProfilePage /> },
-      { path: ":id", element: <ProductPage /> },
+      {
+        path: "profile",
+        element: <ProfilePage />,
+        children: [
+          {
+            path: "orders",
+            element: <OrdersListPage />,
+            children: [{ path: ":id", element: <OrderPage /> }],
+          },
+          {
+            path: "events",
+            element: <UserEventsListPage />,
+            children: [{ path: ":id", element: <UserEventPage /> }],
+          },
+        ],
+      },
+      {
+        path: "products",
+        element: <ProductsListPage />,
+        children: [{ path: ":id", element: <ProductPage /> }],
+      },
+      {
+        path: "events",
+        element: <EventsListPage />,
+        children: [{ path: ":id", element: <EventPage /> }],
+      },
     ],
   },
 ]);

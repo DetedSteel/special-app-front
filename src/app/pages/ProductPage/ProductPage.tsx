@@ -1,6 +1,6 @@
 import type { FC } from "react";
 import { useParams } from "react-router";
-import { useSpecialAppServiceGetItemInfo } from "../../../shared/generated/query/special-app-service";
+import { useSpecialAppServiceGetItemInfo } from "../../../shared/api/generated/query/special-app-service";
 
 export const ProductPage: FC = () => {
   const { id } = useParams();

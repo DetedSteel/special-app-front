@@ -1,6 +1,6 @@
 import type { FC } from "react";
-import { useSpecialAppServiceGetItems } from "../../../shared/generated/query/special-app-service";
 import { Link } from "react-router";
+import { useSpecialAppServiceGetItems } from "../../../shared/api/generated/query/special-app-service";
 
 export const MainPage: FC = () => {
   const { data } = useSpecialAppServiceGetItems();

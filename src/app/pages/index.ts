@@ -1,2 +1,11 @@
 export { MainPage } from "./MainPage/MainPage";
 export { ProfilePage } from "./ProfilePage/ProfilePage";
+export { AboutPage } from "./AboutPage/AboutPage";
+export { EventPage } from "./EventPage/EventPage";
+export { EventsListPage } from "./EventsListPage/EventsListPage";
+export { OrderPage } from "./OrderPage/OrderPage";
+export { OrdersListPage } from "./OrdersListPage/OrdersListPage";
+export { ProductPage } from "./ProductPage/ProductPage";
+export { ProductsListPage } from "./ProductsListPage/ProductsListPage";
+export { UserEventPage } from "./UserEventPage/UserEventPage";
+export { UserEventsListPage } from "./UserEventsListPage/UserEventsListPage";
