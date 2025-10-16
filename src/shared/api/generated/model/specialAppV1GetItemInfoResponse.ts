@@ -4,11 +4,12 @@
  * special-backend.proto
  * OpenAPI spec version: version not set
  */
+import type { SpecialAppV1PictureInfo } from "./specialAppV1PictureInfo";
 
 export interface SpecialAppV1GetItemInfoResponse {
   id?: string;
   title?: string;
   description?: string;
-  price?: string;
-  pictures?: string[];
+  price?: number;
+  pictures?: SpecialAppV1PictureInfo[];
 }

@@ -6,11 +6,10 @@
  */
 import type { SpecialAppV1PictureInfo } from "./specialAppV1PictureInfo";
 
-export interface SpecialAppV1OrderItemInfoForList {
+export interface SpecialAppV1UserEventInfoForList {
   id?: string;
-  itemId?: string;
+  eventId?: string;
   title?: string;
-  price?: number;
-  quantity?: number;
+  datetime?: string;
   picture?: SpecialAppV1PictureInfo;
 }

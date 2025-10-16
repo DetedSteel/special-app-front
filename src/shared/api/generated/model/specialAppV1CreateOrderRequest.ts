@@ -4,8 +4,11 @@
  * special-backend.proto
  * OpenAPI spec version: version not set
  */
+import type { SpecialAppV1OrderItemInfoForCreatng } from "./specialAppV1OrderItemInfoForCreatng";
 
 export interface SpecialAppV1CreateOrderRequest {
   completionDate?: string;
   comment?: string;
+  orderAmount?: number;
+  items?: SpecialAppV1OrderItemInfoForCreatng[];
 }

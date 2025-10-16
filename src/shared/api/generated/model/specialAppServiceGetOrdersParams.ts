@@ -5,6 +5,7 @@
  * OpenAPI spec version: version not set
  */
 
-export interface SpecialAppV1UpdateUserRequest {
-  phoneNumber?: string;
-}
+export type SpecialAppServiceGetOrdersParams = {
+  page?: number;
+  perPage?: number;
+};

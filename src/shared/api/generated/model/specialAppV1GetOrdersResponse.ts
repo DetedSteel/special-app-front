@@ -8,4 +8,7 @@ import type { SpecialAppV1OrderInfoForList } from "./specialAppV1OrderInfoForLis
 
 export interface SpecialAppV1GetOrdersResponse {
   orders?: SpecialAppV1OrderInfoForList[];
+  total?: number;
+  page?: number;
+  perPage?: number;
 }

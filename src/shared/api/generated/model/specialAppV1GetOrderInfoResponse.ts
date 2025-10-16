@@ -7,11 +7,11 @@
 import type { SpecialAppV1OrderItemInfoForList } from "./specialAppV1OrderItemInfoForList";
 
 export interface SpecialAppV1GetOrderInfoResponse {
-  number?: string;
+  number?: number;
   formDate?: string;
   completionDate?: string;
   comment?: string;
   status?: string;
-  orderAmount?: string;
+  orderAmount?: number;
   items?: SpecialAppV1OrderItemInfoForList[];
 }

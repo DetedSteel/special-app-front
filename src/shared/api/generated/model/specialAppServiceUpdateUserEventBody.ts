@@ -5,6 +5,6 @@
  * OpenAPI spec version: version not set
  */
 
-export interface SpecialAppV1UpdateUserRequest {
-  phoneNumber?: string;
+export interface SpecialAppServiceUpdateUserEventBody {
+  numberOfGuests?: number;
 }

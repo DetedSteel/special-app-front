@@ -4,10 +4,10 @@
  * special-backend.proto
  * OpenAPI spec version: version not set
  */
-import type { SpecialAppV1ItemInfoForList } from "./specialAppV1ItemInfoForList";
+import type { SpecialAppV1EventInfoForList } from "./specialAppV1EventInfoForList";
 
-export interface SpecialAppV1GetItemsResponse {
-  items?: SpecialAppV1ItemInfoForList[];
+export interface SpecialAppV1GetEventsResponse {
+  events?: SpecialAppV1EventInfoForList[];
   total?: number;
   page?: number;
   perPage?: number;

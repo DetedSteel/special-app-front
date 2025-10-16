@@ -16,14 +16,14 @@
     "application/json"
   ],
   "paths": {
-    "/v1/items": {
+    "/v1/events": {
       "get": {
-        "operationId": "SpecialAppService_GetItems",
+        "operationId": "SpecialAppService_GetEvents",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/special_app_v1GetItemsResponse"
+              "$ref": "#/definitions/special_app_v1GetEventsResponse"
             }
           },
           "default": {
@@ -33,19 +33,35 @@
             }
           }
         },
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "perPage",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
         "tags": [
           "SpecialAppService"
         ]
       }
     },
-    "/v1/items/{id}": {
+    "/v1/events/{id}": {
       "get": {
-        "operationId": "SpecialAppService_GetItemInfo",
+        "operationId": "SpecialAppService_GetEventInfo",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/special_app_v1GetItemInfoResponse"
+              "$ref": "#/definitions/special_app_v1GetEventInfoResponse"
             }
           },
           "default": {
@@ -68,14 +84,14 @@
         ]
       }
     },
-    "/v1/ivents": {
+    "/v1/items": {
       "get": {
-        "operationId": "SpecialAppService_GetIvents",
+        "operationId": "SpecialAppService_GetItems",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/special_app_v1GetIventsResponse"
+              "$ref": "#/definitions/special_app_v1GetItemsResponse"
             }
           },
           "default": {
@@ -85,19 +101,35 @@
             }
           }
         },
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "perPage",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
         "tags": [
           "SpecialAppService"
         ]
       }
     },
-    "/v1/ivents/{id}": {
+    "/v1/items/{id}": {
       "get": {
-        "operationId": "SpecialAppService_GetIventInfo",
+        "operationId": "SpecialAppService_GetItemInfo",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/special_app_v1GetIventInfoResponse"
+              "$ref": "#/definitions/special_app_v1GetItemInfoResponse"
             }
           },
           "default": {
@@ -137,6 +169,22 @@
             }
           }
         },
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "perPage",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
         "tags": [
           "SpecialAppService"
         ]
@@ -147,7 +195,8 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/special_app_v1GetOrderInfoResponse"
+              "type": "object",
+              "properties": {}
             }
           },
           "default": {
@@ -238,14 +287,14 @@
         ]
       }
     },
-    "/v1/user_ivents": {
+    "/v1/user_events": {
       "get": {
-        "operationId": "SpecialAppService_GetUserIvents",
+        "operationId": "SpecialAppService_GetUserEvents",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/special_app_v1GetUserIventsResponse"
+              "$ref": "#/definitions/special_app_v1GetUserEventsResponse"
             }
           },
           "default": {
@@ -255,17 +304,34 @@
             }
           }
         },
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "perPage",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
         "tags": [
           "SpecialAppService"
         ]
       },
       "post": {
-        "operationId": "SpecialAppService_CreateUserIvent",
+        "operationId": "SpecialAppService_CreateUserEvent",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/special_app_v1GetUserIventInfoResponse"
+              "type": "object",
+              "properties": {}
             }
           },
           "default": {
@@ -281,7 +347,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/special_app_v1CreateUserIventRequest"
+              "$ref": "#/definitions/special_app_v1CreateUserEventRequest"
             }
           }
         ],
@@ -290,14 +356,14 @@
         ]
       }
     },
-    "/v1/user_ivents/{id}": {
+    "/v1/user_events/{id}": {
       "get": {
-        "operationId": "SpecialAppService_GetUserIventInfo",
+        "operationId": "SpecialAppService_GetUserEventInfo",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/special_app_v1GetUserIventInfoResponse"
+              "$ref": "#/definitions/special_app_v1GetUserEventInfoResponse"
             }
           },
           "default": {
@@ -320,7 +386,7 @@
         ]
       },
       "delete": {
-        "operationId": "SpecialAppService_DeleteUserIvent",
+        "operationId": "SpecialAppService_DeleteUserEvent",
         "responses": {
           "200": {
             "description": "A successful response.",
@@ -349,12 +415,12 @@
         ]
       },
       "patch": {
-        "operationId": "SpecialAppService_UpdateUserIvent",
+        "operationId": "SpecialAppService_UpdateUserEvent",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/special_app_v1GetUserIventInfoResponse"
+              "$ref": "#/definitions/special_app_v1GetUserEventInfoResponse"
             }
           },
           "default": {
@@ -376,7 +442,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/SpecialAppServiceUpdateUserIventBody"
+              "$ref": "#/definitions/SpecialAppServiceUpdateUserEventBody"
             }
           }
         ],
@@ -468,12 +534,12 @@
         }
       }
     },
-    "SpecialAppServiceUpdateUserIventBody": {
+    "SpecialAppServiceUpdateUserEventBody": {
       "type": "object",
       "properties": {
         "numberOfGuests": {
-          "type": "string",
-          "format": "int64"
+          "type": "integer",
+          "format": "int32"
         }
       }
     },
@@ -514,22 +580,33 @@
         },
         "comment": {
           "type": "string"
+        },
+        "orderAmount": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/special_app_v1OrderItemInfoForCreatng"
+          }
         }
       }
     },
-    "special_app_v1CreateUserIventRequest": {
+    "special_app_v1CreateUserEventRequest": {
       "type": "object",
       "properties": {
-        "iventId": {
+        "eventId": {
           "type": "string"
         },
         "numberOfGuests": {
-          "type": "string",
-          "format": "int64"
+          "type": "integer",
+          "format": "int32"
         }
       }
     },
-    "special_app_v1GetItemInfoResponse": {
+    "special_app_v1EventInfoForList": {
       "type": "object",
       "properties": {
         "id": {
@@ -538,34 +615,28 @@
         "title": {
           "type": "string"
         },
-        "description": {
-          "type": "string"
+        "datetime": {
+          "type": "string",
+          "format": "date-time"
         },
         "price": {
-          "type": "string",
-          "format": "int64"
+          "type": "integer",
+          "format": "int32"
         },
-        "pictures": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
+        "totalSeats": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "occupiedSeats": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "picture": {
+          "$ref": "#/definitions/special_app_v1PictureInfo"
         }
       }
     },
-    "special_app_v1GetItemsResponse": {
-      "type": "object",
-      "properties": {
-        "items": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/special_app_v1ItemInfoForList"
-          }
-        }
-      }
-    },
-    "special_app_v1GetIventInfoResponse": {
+    "special_app_v1GetEventInfoResponse": {
       "type": "object",
       "properties": {
         "id": {
@@ -582,34 +653,96 @@
           "format": "date-time"
         },
         "price": {
-          "type": "string",
-          "format": "int64"
+          "type": "integer",
+          "format": "int32"
         },
         "totalSeats": {
-          "type": "string",
-          "format": "int64"
+          "type": "integer",
+          "format": "int32"
         },
         "occupiedSeats": {
-          "type": "string",
-          "format": "int64"
+          "type": "integer",
+          "format": "int32"
         },
         "pictures": {
           "type": "array",
           "items": {
-            "type": "string"
+            "type": "object",
+            "$ref": "#/definitions/special_app_v1PictureInfo"
           }
         }
       }
     },
-    "special_app_v1GetIventsResponse": {
+    "special_app_v1GetEventsResponse": {
       "type": "object",
       "properties": {
-        "ivents": {
+        "events": {
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/special_app_v1IventInfoForList"
+            "$ref": "#/definitions/special_app_v1EventInfoForList"
           }
+        },
+        "total": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "page": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "perPage": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "special_app_v1GetItemInfoResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "price": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "pictures": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/special_app_v1PictureInfo"
+          }
+        }
+      }
+    },
+    "special_app_v1GetItemsResponse": {
+      "type": "object",
+      "properties": {
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/special_app_v1ItemInfoForList"
+          }
+        },
+        "total": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "page": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "perPage": {
+          "type": "integer",
+          "format": "int32"
         }
       }
     },
@@ -617,7 +750,8 @@
       "type": "object",
       "properties": {
         "number": {
-          "type": "string"
+          "type": "integer",
+          "format": "int32"
         },
         "formDate": {
           "type": "string",
@@ -634,8 +768,8 @@
           "type": "string"
         },
         "orderAmount": {
-          "type": "string",
-          "format": "int64"
+          "type": "integer",
+          "format": "int32"
         },
         "items": {
           "type": "array",
@@ -655,6 +789,67 @@
             "type": "object",
             "$ref": "#/definitions/special_app_v1OrderInfoForList"
           }
+        },
+        "total": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "page": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "perPage": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "special_app_v1GetUserEventInfoResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "eventId": {
+          "type": "string"
+        },
+        "numberOfGuests": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "title": {
+          "type": "string"
+        },
+        "datetime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "picture": {
+          "$ref": "#/definitions/special_app_v1PictureInfo"
+        }
+      }
+    },
+    "special_app_v1GetUserEventsResponse": {
+      "type": "object",
+      "properties": {
+        "userEvents": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/special_app_v1UserEventInfoForList"
+          }
+        },
+        "total": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "page": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "perPage": {
+          "type": "integer",
+          "format": "int32"
         }
       }
     },
@@ -675,42 +870,6 @@
         }
       }
     },
-    "special_app_v1GetUserIventInfoResponse": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string"
-        },
-        "iventId": {
-          "type": "string"
-        },
-        "numberOfGuests": {
-          "type": "string"
-        },
-        "title": {
-          "type": "string"
-        },
-        "datetime": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "picture": {
-          "type": "string"
-        }
-      }
-    },
-    "special_app_v1GetUserIventsResponse": {
-      "type": "object",
-      "properties": {
-        "userIvents": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/special_app_v1GetUserIventInfoResponse"
-          }
-        }
-      }
-    },
     "special_app_v1ItemInfoForList": {
       "type": "object",
       "properties": {
@@ -721,41 +880,11 @@
           "type": "string"
         },
         "price": {
-          "type": "string",
-          "format": "int64"
+          "type": "integer",
+          "format": "int32"
         },
         "picture": {
-          "type": "string"
-        }
-      }
-    },
-    "special_app_v1IventInfoForList": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string"
-        },
-        "title": {
-          "type": "string"
-        },
-        "datetime": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "price": {
-          "type": "string",
-          "format": "int64"
-        },
-        "totalSeats": {
-          "type": "string",
-          "format": "int64"
-        },
-        "occupiedSeats": {
-          "type": "string",
-          "format": "int64"
-        },
-        "picture": {
-          "type": "string"
+          "$ref": "#/definitions/special_app_v1PictureInfo"
         }
       }
     },
@@ -763,7 +892,8 @@
       "type": "object",
       "properties": {
         "number": {
-          "type": "string"
+          "type": "integer",
+          "format": "int32"
         },
         "completionDate": {
           "type": "string",
@@ -773,8 +903,20 @@
           "type": "string"
         },
         "orderAmount": {
-          "type": "string",
-          "format": "int64"
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "special_app_v1OrderItemInfoForCreatng": {
+      "type": "object",
+      "properties": {
+        "itemId": {
+          "type": "string"
+        },
+        "quantity": {
+          "type": "integer",
+          "format": "int32"
         }
       }
     },
@@ -791,14 +933,26 @@
           "type": "string"
         },
         "price": {
-          "type": "string",
-          "format": "int64"
+          "type": "integer",
+          "format": "int32"
         },
         "quantity": {
-          "type": "string",
-          "format": "int64"
+          "type": "integer",
+          "format": "int32"
         },
         "picture": {
+          "$ref": "#/definitions/special_app_v1PictureInfo"
+        }
+      }
+    },
+    "special_app_v1PictureInfo": {
+      "type": "object",
+      "properties": {
+        "picture": {
+          "type": "string",
+          "format": "byte"
+        },
+        "mimeType": {
           "type": "string"
         }
       }
@@ -806,17 +960,29 @@
     "special_app_v1UpdateUserRequest": {
       "type": "object",
       "properties": {
-        "name": {
-          "type": "string"
-        },
-        "surname": {
-          "type": "string"
-        },
-        "nickname": {
-          "type": "string"
-        },
         "phoneNumber": {
           "type": "string"
+        }
+      }
+    },
+    "special_app_v1UserEventInfoForList": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "eventId": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "datetime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "picture": {
+          "$ref": "#/definitions/special_app_v1PictureInfo"
         }
       }
     }

@@ -5,6 +5,4 @@
  * OpenAPI spec version: version not set
  */
 
-export interface SpecialAppV1UpdateUserRequest {
-  phoneNumber?: string;
-}
+export type SpecialAppServiceCreateOrder200 = { [key: string]: unknown };
