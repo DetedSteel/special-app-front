@@ -4,12 +4,11 @@
  * special-backend.proto
  * OpenAPI spec version: version not set
  */
-import type { SpecialAppV1PictureInfo } from "./specialAppV1PictureInfo";
 
 export interface SpecialAppV1UserEventInfoForList {
   id?: string;
   eventId?: string;
   title?: string;
   datetime?: string;
-  picture?: SpecialAppV1PictureInfo;
+  picture?: string;
 }

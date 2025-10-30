@@ -22,28 +22,29 @@ export const router = createBrowserRouter([
       {
         path: "profile",
         element: <ProfilePage />,
-        children: [
-          {
-            path: "orders",
-            element: <OrdersListPage />,
-            children: [{ path: ":id", element: <OrderPage /> }],
-          },
-          {
-            path: "events",
-            element: <UserEventsListPage />,
-            children: [{ path: ":id", element: <UserEventPage /> }],
-          },
-        ],
+      },
+      {
+        path: "profile/orders",
+        element: <OrdersListPage />,
+        children: [{ path: ":id", element: <OrderPage /> }],
+      },
+      {
+        path: "profile/events",
+        element: <UserEventsListPage />,
+        children: [{ path: ":id", element: <UserEventPage /> }],
       },
       {
         path: "products",
         element: <ProductsListPage />,
-        children: [{ path: ":id", element: <ProductPage /> }],
       },
+      { path: "products/:id", element: <ProductPage /> },
       {
         path: "events",
         element: <EventsListPage />,
-        children: [{ path: ":id", element: <EventPage /> }],
+      },
+      {
+        path: "events/:id",
+        element: <EventPage />,
       },
     ],
   },

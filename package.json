@@ -16,6 +16,7 @@
     "@tanstack/react-query": "^5.87.1",
     "@telegram-apps/sdk-react": "^2.0.19",
     "axios": "^1.11.0",
+    "embla-carousel-react": "^8.6.0",
     "framer-motion": "^12.23.12",
     "prettier": "^3.6.2",
     "react": "^19.1.1",

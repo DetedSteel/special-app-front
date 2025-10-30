@@ -30,7 +30,6 @@ import type {
   SpecialAppServiceGetItemsParams,
   SpecialAppServiceGetOrdersParams,
   SpecialAppServiceGetUserEventsParams,
-  SpecialAppServiceUpdateOrderBody,
   SpecialAppServiceUpdateUserEventBody,
   SpecialAppV1CreateOrderRequest,
   SpecialAppV1CreateUserEventRequest,
@@ -49,17 +48,19 @@ import type {
 import { baseApiRequest } from "../../config/baseRequest";
 
 export const specialAppServiceGetEvents = (
-  signal?: AbortSignal
+  params?: SpecialAppServiceGetEventsParams,
+  signal?: AbortSignal,
 ) => {
   return baseApiRequest<SpecialAppV1GetEventsResponse>({
     url: `/v1/events`,
     method: "GET",
+    params,
     signal,
   });
 };
 
 export const getSpecialAppServiceGetEventsQueryKey = (
-  params?: SpecialAppServiceGetEventsParams
+  params?: SpecialAppServiceGetEventsParams,
 ) => {
   return [`/v1/events`, ...(params ? [params] : [])] as const;
 };
@@ -71,17 +72,22 @@ export const getSpecialAppServiceGetEventsQueryOptions = <
   params?: SpecialAppServiceGetEventsParams,
   options?: {
     query?: Partial<
-      UseQueryOptions<Awaited<ReturnType<typeof specialAppServiceGetEvents>>, TError, TData>
+      UseQueryOptions<
+        Awaited<ReturnType<typeof specialAppServiceGetEvents>>,
+        TError,
+        TData
+      >
     >;
-  }
+  },
 ) => {
   const { query: queryOptions } = options ?? {};
 
-  const queryKey = queryOptions?.queryKey ?? getSpecialAppServiceGetEventsQueryKey(params);
+  const queryKey =
+    queryOptions?.queryKey ?? getSpecialAppServiceGetEventsQueryKey(params);
 
-  const queryFn: QueryFunction<Awaited<ReturnType<typeof specialAppServiceGetEvents>>> = ({
-    signal,
-  }) => specialAppServiceGetEvents(signal);
+  const queryFn: QueryFunction<
+    Awaited<ReturnType<typeof specialAppServiceGetEvents>>
+  > = ({ signal }) => specialAppServiceGetEvents(params, signal);
 
   return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
     Awaited<ReturnType<typeof specialAppServiceGetEvents>>,
@@ -102,7 +108,11 @@ export function useSpecialAppServiceGetEvents<
   params: undefined | SpecialAppServiceGetEventsParams,
   options: {
     query: Partial<
-      UseQueryOptions<Awaited<ReturnType<typeof specialAppServiceGetEvents>>, TError, TData>
+      UseQueryOptions<
+        Awaited<ReturnType<typeof specialAppServiceGetEvents>>,
+        TError,
+        TData
+      >
     > &
       Pick<
         DefinedInitialDataOptions<
@@ -113,7 +123,7 @@ export function useSpecialAppServiceGetEvents<
         "initialData"
       >;
   },
-  queryClient?: QueryClient
+  queryClient?: QueryClient,
 ): DefinedUseQueryResult<TData, TError> & {
   queryKey: DataTag<QueryKey, TData, TError>;
 };
@@ -124,7 +134,11 @@ export function useSpecialAppServiceGetEvents<
   params?: SpecialAppServiceGetEventsParams,
   options?: {
     query?: Partial<
-      UseQueryOptions<Awaited<ReturnType<typeof specialAppServiceGetEvents>>, TError, TData>
+      UseQueryOptions<
+        Awaited<ReturnType<typeof specialAppServiceGetEvents>>,
+        TError,
+        TData
+      >
     > &
       Pick<
         UndefinedInitialDataOptions<
@@ -135,7 +149,7 @@ export function useSpecialAppServiceGetEvents<
         "initialData"
       >;
   },
-  queryClient?: QueryClient
+  queryClient?: QueryClient,
 ): UseQueryResult<TData, TError> & {
   queryKey: DataTag<QueryKey, TData, TError>;
 };
@@ -146,10 +160,14 @@ export function useSpecialAppServiceGetEvents<
   params?: SpecialAppServiceGetEventsParams,
   options?: {
     query?: Partial<
-      UseQueryOptions<Awaited<ReturnType<typeof specialAppServiceGetEvents>>, TError, TData>
+      UseQueryOptions<
+        Awaited<ReturnType<typeof specialAppServiceGetEvents>>,
+        TError,
+        TData
+      >
     >;
   },
-  queryClient?: QueryClient
+  queryClient?: QueryClient,
 ): UseQueryResult<TData, TError> & {
   queryKey: DataTag<QueryKey, TData, TError>;
 };
@@ -161,25 +179,36 @@ export function useSpecialAppServiceGetEvents<
   params?: SpecialAppServiceGetEventsParams,
   options?: {
     query?: Partial<
-      UseQueryOptions<Awaited<ReturnType<typeof specialAppServiceGetEvents>>, TError, TData>
+      UseQueryOptions<
+        Awaited<ReturnType<typeof specialAppServiceGetEvents>>,
+        TError,
+        TData
+      >
     >;
   },
-  queryClient?: QueryClient
+  queryClient?: QueryClient,
 ): UseQueryResult<TData, TError> & {
   queryKey: DataTag<QueryKey, TData, TError>;
 } {
-  const queryOptions = getSpecialAppServiceGetEventsQueryOptions(params, options);
+  const queryOptions = getSpecialAppServiceGetEventsQueryOptions(
+    params,
+    options,
+  );
 
-  const query = useQuery(queryOptions, queryClient) as UseQueryResult<TData, TError> & {
-    queryKey: DataTag<QueryKey, TData, TError>;
-  };
+  const query = useQuery(queryOptions, queryClient) as UseQueryResult<
+    TData,
+    TError
+  > & { queryKey: DataTag<QueryKey, TData, TError> };
 
   query.queryKey = queryOptions.queryKey;
 
   return query;
 }
 
-export const specialAppServiceGetEventInfo = (id: string, signal?: AbortSignal) => {
+export const specialAppServiceGetEventInfo = (
+  id: string,
+  signal?: AbortSignal,
+) => {
   return baseApiRequest<SpecialAppV1GetEventInfoResponse>({
     url: `/v1/events/${id}`,
     method: "GET",
@@ -198,26 +227,33 @@ export const getSpecialAppServiceGetEventInfoQueryOptions = <
   id: string,
   options?: {
     query?: Partial<
-      UseQueryOptions<Awaited<ReturnType<typeof specialAppServiceGetEventInfo>>, TError, TData>
+      UseQueryOptions<
+        Awaited<ReturnType<typeof specialAppServiceGetEventInfo>>,
+        TError,
+        TData
+      >
     >;
-  }
+  },
 ) => {
   const { query: queryOptions } = options ?? {};
 
-  const queryKey = queryOptions?.queryKey ?? getSpecialAppServiceGetEventInfoQueryKey(id);
+  const queryKey =
+    queryOptions?.queryKey ?? getSpecialAppServiceGetEventInfoQueryKey(id);
 
-  const queryFn: QueryFunction<Awaited<ReturnType<typeof specialAppServiceGetEventInfo>>> = ({
-    signal,
-  }) => specialAppServiceGetEventInfo(id, signal);
+  const queryFn: QueryFunction<
+    Awaited<ReturnType<typeof specialAppServiceGetEventInfo>>
+  > = ({ signal }) => specialAppServiceGetEventInfo(id, signal);
 
   return {
     queryKey,
     queryFn,
     enabled: !!id,
     ...queryOptions,
-  } as UseQueryOptions<Awaited<ReturnType<typeof specialAppServiceGetEventInfo>>, TError, TData> & {
-    queryKey: DataTag<QueryKey, TData, TError>;
-  };
+  } as UseQueryOptions<
+    Awaited<ReturnType<typeof specialAppServiceGetEventInfo>>,
+    TError,
+    TData
+  > & { queryKey: DataTag<QueryKey, TData, TError> };
 };
 
 export type SpecialAppServiceGetEventInfoQueryResult = NonNullable<
@@ -232,7 +268,11 @@ export function useSpecialAppServiceGetEventInfo<
   id: string,
   options: {
     query: Partial<
-      UseQueryOptions<Awaited<ReturnType<typeof specialAppServiceGetEventInfo>>, TError, TData>
+      UseQueryOptions<
+        Awaited<ReturnType<typeof specialAppServiceGetEventInfo>>,
+        TError,
+        TData
+      >
     > &
       Pick<
         DefinedInitialDataOptions<
@@ -243,7 +283,7 @@ export function useSpecialAppServiceGetEventInfo<
         "initialData"
       >;
   },
-  queryClient?: QueryClient
+  queryClient?: QueryClient,
 ): DefinedUseQueryResult<TData, TError> & {
   queryKey: DataTag<QueryKey, TData, TError>;
 };
@@ -254,7 +294,11 @@ export function useSpecialAppServiceGetEventInfo<
   id: string,
   options?: {
     query?: Partial<
-      UseQueryOptions<Awaited<ReturnType<typeof specialAppServiceGetEventInfo>>, TError, TData>
+      UseQueryOptions<
+        Awaited<ReturnType<typeof specialAppServiceGetEventInfo>>,
+        TError,
+        TData
+      >
     > &
       Pick<
         UndefinedInitialDataOptions<
@@ -265,7 +309,7 @@ export function useSpecialAppServiceGetEventInfo<
         "initialData"
       >;
   },
-  queryClient?: QueryClient
+  queryClient?: QueryClient,
 ): UseQueryResult<TData, TError> & {
   queryKey: DataTag<QueryKey, TData, TError>;
 };
@@ -276,10 +320,14 @@ export function useSpecialAppServiceGetEventInfo<
   id: string,
   options?: {
     query?: Partial<
-      UseQueryOptions<Awaited<ReturnType<typeof specialAppServiceGetEventInfo>>, TError, TData>
+      UseQueryOptions<
+        Awaited<ReturnType<typeof specialAppServiceGetEventInfo>>,
+        TError,
+        TData
+      >
     >;
   },
-  queryClient?: QueryClient
+  queryClient?: QueryClient,
 ): UseQueryResult<TData, TError> & {
   queryKey: DataTag<QueryKey, TData, TError>;
 };
@@ -291,18 +339,26 @@ export function useSpecialAppServiceGetEventInfo<
   id: string,
   options?: {
     query?: Partial<
-      UseQueryOptions<Awaited<ReturnType<typeof specialAppServiceGetEventInfo>>, TError, TData>
+      UseQueryOptions<
+        Awaited<ReturnType<typeof specialAppServiceGetEventInfo>>,
+        TError,
+        TData
+      >
     >;
   },
-  queryClient?: QueryClient
+  queryClient?: QueryClient,
 ): UseQueryResult<TData, TError> & {
   queryKey: DataTag<QueryKey, TData, TError>;
 } {
-  const queryOptions = getSpecialAppServiceGetEventInfoQueryOptions(id, options);
+  const queryOptions = getSpecialAppServiceGetEventInfoQueryOptions(
+    id,
+    options,
+  );
 
-  const query = useQuery(queryOptions, queryClient) as UseQueryResult<TData, TError> & {
-    queryKey: DataTag<QueryKey, TData, TError>;
-  };
+  const query = useQuery(queryOptions, queryClient) as UseQueryResult<
+    TData,
+    TError
+  > & { queryKey: DataTag<QueryKey, TData, TError> };
 
   query.queryKey = queryOptions.queryKey;
 
@@ -310,16 +366,20 @@ export function useSpecialAppServiceGetEventInfo<
 }
 
 export const specialAppServiceGetItems = (
-  signal?: AbortSignal
+  params?: SpecialAppServiceGetItemsParams,
+  signal?: AbortSignal,
 ) => {
   return baseApiRequest<SpecialAppV1GetItemsResponse>({
     url: `/v1/items`,
     method: "GET",
+    params,
     signal,
   });
 };
 
-export const getSpecialAppServiceGetItemsQueryKey = (params?: SpecialAppServiceGetItemsParams) => {
+export const getSpecialAppServiceGetItemsQueryKey = (
+  params?: SpecialAppServiceGetItemsParams,
+) => {
   return [`/v1/items`, ...(params ? [params] : [])] as const;
 };
 
@@ -330,17 +390,22 @@ export const getSpecialAppServiceGetItemsQueryOptions = <
   params?: SpecialAppServiceGetItemsParams,
   options?: {
     query?: Partial<
-      UseQueryOptions<Awaited<ReturnType<typeof specialAppServiceGetItems>>, TError, TData>
+      UseQueryOptions<
+        Awaited<ReturnType<typeof specialAppServiceGetItems>>,
+        TError,
+        TData
+      >
     >;
-  }
+  },
 ) => {
   const { query: queryOptions } = options ?? {};
 
-  const queryKey = queryOptions?.queryKey ?? getSpecialAppServiceGetItemsQueryKey(params);
+  const queryKey =
+    queryOptions?.queryKey ?? getSpecialAppServiceGetItemsQueryKey(params);
 
-  const queryFn: QueryFunction<Awaited<ReturnType<typeof specialAppServiceGetItems>>> = ({
-    signal,
-  }) => specialAppServiceGetItems(signal);
+  const queryFn: QueryFunction<
+    Awaited<ReturnType<typeof specialAppServiceGetItems>>
+  > = ({ signal }) => specialAppServiceGetItems(params, signal);
 
   return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
     Awaited<ReturnType<typeof specialAppServiceGetItems>>,
@@ -361,7 +426,11 @@ export function useSpecialAppServiceGetItems<
   params: undefined | SpecialAppServiceGetItemsParams,
   options: {
     query: Partial<
-      UseQueryOptions<Awaited<ReturnType<typeof specialAppServiceGetItems>>, TError, TData>
+      UseQueryOptions<
+        Awaited<ReturnType<typeof specialAppServiceGetItems>>,
+        TError,
+        TData
+      >
     > &
       Pick<
         DefinedInitialDataOptions<
@@ -372,7 +441,7 @@ export function useSpecialAppServiceGetItems<
         "initialData"
       >;
   },
-  queryClient?: QueryClient
+  queryClient?: QueryClient,
 ): DefinedUseQueryResult<TData, TError> & {
   queryKey: DataTag<QueryKey, TData, TError>;
 };
@@ -383,7 +452,11 @@ export function useSpecialAppServiceGetItems<
   params?: SpecialAppServiceGetItemsParams,
   options?: {
     query?: Partial<
-      UseQueryOptions<Awaited<ReturnType<typeof specialAppServiceGetItems>>, TError, TData>
+      UseQueryOptions<
+        Awaited<ReturnType<typeof specialAppServiceGetItems>>,
+        TError,
+        TData
+      >
     > &
       Pick<
         UndefinedInitialDataOptions<
@@ -394,7 +467,7 @@ export function useSpecialAppServiceGetItems<
         "initialData"
       >;
   },
-  queryClient?: QueryClient
+  queryClient?: QueryClient,
 ): UseQueryResult<TData, TError> & {
   queryKey: DataTag<QueryKey, TData, TError>;
 };
@@ -405,10 +478,14 @@ export function useSpecialAppServiceGetItems<
   params?: SpecialAppServiceGetItemsParams,
   options?: {
     query?: Partial<
-      UseQueryOptions<Awaited<ReturnType<typeof specialAppServiceGetItems>>, TError, TData>
+      UseQueryOptions<
+        Awaited<ReturnType<typeof specialAppServiceGetItems>>,
+        TError,
+        TData
+      >
     >;
   },
-  queryClient?: QueryClient
+  queryClient?: QueryClient,
 ): UseQueryResult<TData, TError> & {
   queryKey: DataTag<QueryKey, TData, TError>;
 };
@@ -420,25 +497,36 @@ export function useSpecialAppServiceGetItems<
   params?: SpecialAppServiceGetItemsParams,
   options?: {
     query?: Partial<
-      UseQueryOptions<Awaited<ReturnType<typeof specialAppServiceGetItems>>, TError, TData>
+      UseQueryOptions<
+        Awaited<ReturnType<typeof specialAppServiceGetItems>>,
+        TError,
+        TData
+      >
     >;
   },
-  queryClient?: QueryClient
+  queryClient?: QueryClient,
 ): UseQueryResult<TData, TError> & {
   queryKey: DataTag<QueryKey, TData, TError>;
 } {
-  const queryOptions = getSpecialAppServiceGetItemsQueryOptions(params, options);
+  const queryOptions = getSpecialAppServiceGetItemsQueryOptions(
+    params,
+    options,
+  );
 
-  const query = useQuery(queryOptions, queryClient) as UseQueryResult<TData, TError> & {
-    queryKey: DataTag<QueryKey, TData, TError>;
-  };
+  const query = useQuery(queryOptions, queryClient) as UseQueryResult<
+    TData,
+    TError
+  > & { queryKey: DataTag<QueryKey, TData, TError> };
 
   query.queryKey = queryOptions.queryKey;
 
   return query;
 }
 
-export const specialAppServiceGetItemInfo = (id: string, signal?: AbortSignal) => {
+export const specialAppServiceGetItemInfo = (
+  id: string,
+  signal?: AbortSignal,
+) => {
   return baseApiRequest<SpecialAppV1GetItemInfoResponse>({
     url: `/v1/items/${id}`,
     method: "GET",
@@ -457,26 +545,33 @@ export const getSpecialAppServiceGetItemInfoQueryOptions = <
   id: string,
   options?: {
     query?: Partial<
-      UseQueryOptions<Awaited<ReturnType<typeof specialAppServiceGetItemInfo>>, TError, TData>
+      UseQueryOptions<
+        Awaited<ReturnType<typeof specialAppServiceGetItemInfo>>,
+        TError,
+        TData
+      >
     >;
-  }
+  },
 ) => {
   const { query: queryOptions } = options ?? {};
 
-  const queryKey = queryOptions?.queryKey ?? getSpecialAppServiceGetItemInfoQueryKey(id);
+  const queryKey =
+    queryOptions?.queryKey ?? getSpecialAppServiceGetItemInfoQueryKey(id);
 
-  const queryFn: QueryFunction<Awaited<ReturnType<typeof specialAppServiceGetItemInfo>>> = ({
-    signal,
-  }) => specialAppServiceGetItemInfo(id, signal);
+  const queryFn: QueryFunction<
+    Awaited<ReturnType<typeof specialAppServiceGetItemInfo>>
+  > = ({ signal }) => specialAppServiceGetItemInfo(id, signal);
 
   return {
     queryKey,
     queryFn,
     enabled: !!id,
     ...queryOptions,
-  } as UseQueryOptions<Awaited<ReturnType<typeof specialAppServiceGetItemInfo>>, TError, TData> & {
-    queryKey: DataTag<QueryKey, TData, TError>;
-  };
+  } as UseQueryOptions<
+    Awaited<ReturnType<typeof specialAppServiceGetItemInfo>>,
+    TError,
+    TData
+  > & { queryKey: DataTag<QueryKey, TData, TError> };
 };
 
 export type SpecialAppServiceGetItemInfoQueryResult = NonNullable<
@@ -491,7 +586,11 @@ export function useSpecialAppServiceGetItemInfo<
   id: string,
   options: {
     query: Partial<
-      UseQueryOptions<Awaited<ReturnType<typeof specialAppServiceGetItemInfo>>, TError, TData>
+      UseQueryOptions<
+        Awaited<ReturnType<typeof specialAppServiceGetItemInfo>>,
+        TError,
+        TData
+      >
     > &
       Pick<
         DefinedInitialDataOptions<
@@ -502,7 +601,7 @@ export function useSpecialAppServiceGetItemInfo<
         "initialData"
       >;
   },
-  queryClient?: QueryClient
+  queryClient?: QueryClient,
 ): DefinedUseQueryResult<TData, TError> & {
   queryKey: DataTag<QueryKey, TData, TError>;
 };
@@ -513,7 +612,11 @@ export function useSpecialAppServiceGetItemInfo<
   id: string,
   options?: {
     query?: Partial<
-      UseQueryOptions<Awaited<ReturnType<typeof specialAppServiceGetItemInfo>>, TError, TData>
+      UseQueryOptions<
+        Awaited<ReturnType<typeof specialAppServiceGetItemInfo>>,
+        TError,
+        TData
+      >
     > &
       Pick<
         UndefinedInitialDataOptions<
@@ -524,7 +627,7 @@ export function useSpecialAppServiceGetItemInfo<
         "initialData"
       >;
   },
-  queryClient?: QueryClient
+  queryClient?: QueryClient,
 ): UseQueryResult<TData, TError> & {
   queryKey: DataTag<QueryKey, TData, TError>;
 };
@@ -535,10 +638,14 @@ export function useSpecialAppServiceGetItemInfo<
   id: string,
   options?: {
     query?: Partial<
-      UseQueryOptions<Awaited<ReturnType<typeof specialAppServiceGetItemInfo>>, TError, TData>
+      UseQueryOptions<
+        Awaited<ReturnType<typeof specialAppServiceGetItemInfo>>,
+        TError,
+        TData
+      >
     >;
   },
-  queryClient?: QueryClient
+  queryClient?: QueryClient,
 ): UseQueryResult<TData, TError> & {
   queryKey: DataTag<QueryKey, TData, TError>;
 };
@@ -550,18 +657,23 @@ export function useSpecialAppServiceGetItemInfo<
   id: string,
   options?: {
     query?: Partial<
-      UseQueryOptions<Awaited<ReturnType<typeof specialAppServiceGetItemInfo>>, TError, TData>
+      UseQueryOptions<
+        Awaited<ReturnType<typeof specialAppServiceGetItemInfo>>,
+        TError,
+        TData
+      >
     >;
   },
-  queryClient?: QueryClient
+  queryClient?: QueryClient,
 ): UseQueryResult<TData, TError> & {
   queryKey: DataTag<QueryKey, TData, TError>;
 } {
   const queryOptions = getSpecialAppServiceGetItemInfoQueryOptions(id, options);
 
-  const query = useQuery(queryOptions, queryClient) as UseQueryResult<TData, TError> & {
-    queryKey: DataTag<QueryKey, TData, TError>;
-  };
+  const query = useQuery(queryOptions, queryClient) as UseQueryResult<
+    TData,
+    TError
+  > & { queryKey: DataTag<QueryKey, TData, TError> };
 
   query.queryKey = queryOptions.queryKey;
 
@@ -569,17 +681,19 @@ export function useSpecialAppServiceGetItemInfo<
 }
 
 export const specialAppServiceGetOrders = (
-  signal?: AbortSignal
+  params?: SpecialAppServiceGetOrdersParams,
+  signal?: AbortSignal,
 ) => {
   return baseApiRequest<SpecialAppV1GetOrdersResponse>({
     url: `/v1/orders`,
     method: "GET",
+    params,
     signal,
   });
 };
 
 export const getSpecialAppServiceGetOrdersQueryKey = (
-  params?: SpecialAppServiceGetOrdersParams
+  params?: SpecialAppServiceGetOrdersParams,
 ) => {
   return [`/v1/orders`, ...(params ? [params] : [])] as const;
 };
@@ -591,17 +705,22 @@ export const getSpecialAppServiceGetOrdersQueryOptions = <
   params?: SpecialAppServiceGetOrdersParams,
   options?: {
     query?: Partial<
-      UseQueryOptions<Awaited<ReturnType<typeof specialAppServiceGetOrders>>, TError, TData>
+      UseQueryOptions<
+        Awaited<ReturnType<typeof specialAppServiceGetOrders>>,
+        TError,
+        TData
+      >
     >;
-  }
+  },
 ) => {
   const { query: queryOptions } = options ?? {};
 
-  const queryKey = queryOptions?.queryKey ?? getSpecialAppServiceGetOrdersQueryKey(params);
+  const queryKey =
+    queryOptions?.queryKey ?? getSpecialAppServiceGetOrdersQueryKey(params);
 
-  const queryFn: QueryFunction<Awaited<ReturnType<typeof specialAppServiceGetOrders>>> = ({
-    signal,
-  }) => specialAppServiceGetOrders(signal);
+  const queryFn: QueryFunction<
+    Awaited<ReturnType<typeof specialAppServiceGetOrders>>
+  > = ({ signal }) => specialAppServiceGetOrders(params, signal);
 
   return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
     Awaited<ReturnType<typeof specialAppServiceGetOrders>>,
@@ -622,7 +741,11 @@ export function useSpecialAppServiceGetOrders<
   params: undefined | SpecialAppServiceGetOrdersParams,
   options: {
     query: Partial<
-      UseQueryOptions<Awaited<ReturnType<typeof specialAppServiceGetOrders>>, TError, TData>
+      UseQueryOptions<
+        Awaited<ReturnType<typeof specialAppServiceGetOrders>>,
+        TError,
+        TData
+      >
     > &
       Pick<
         DefinedInitialDataOptions<
@@ -633,7 +756,7 @@ export function useSpecialAppServiceGetOrders<
         "initialData"
       >;
   },
-  queryClient?: QueryClient
+  queryClient?: QueryClient,
 ): DefinedUseQueryResult<TData, TError> & {
   queryKey: DataTag<QueryKey, TData, TError>;
 };
@@ -644,7 +767,11 @@ export function useSpecialAppServiceGetOrders<
   params?: SpecialAppServiceGetOrdersParams,
   options?: {
     query?: Partial<
-      UseQueryOptions<Awaited<ReturnType<typeof specialAppServiceGetOrders>>, TError, TData>
+      UseQueryOptions<
+        Awaited<ReturnType<typeof specialAppServiceGetOrders>>,
+        TError,
+        TData
+      >
     > &
       Pick<
         UndefinedInitialDataOptions<
@@ -655,7 +782,7 @@ export function useSpecialAppServiceGetOrders<
         "initialData"
       >;
   },
-  queryClient?: QueryClient
+  queryClient?: QueryClient,
 ): UseQueryResult<TData, TError> & {
   queryKey: DataTag<QueryKey, TData, TError>;
 };
@@ -666,10 +793,14 @@ export function useSpecialAppServiceGetOrders<
   params?: SpecialAppServiceGetOrdersParams,
   options?: {
     query?: Partial<
-      UseQueryOptions<Awaited<ReturnType<typeof specialAppServiceGetOrders>>, TError, TData>
+      UseQueryOptions<
+        Awaited<ReturnType<typeof specialAppServiceGetOrders>>,
+        TError,
+        TData
+      >
     >;
   },
-  queryClient?: QueryClient
+  queryClient?: QueryClient,
 ): UseQueryResult<TData, TError> & {
   queryKey: DataTag<QueryKey, TData, TError>;
 };
@@ -681,18 +812,26 @@ export function useSpecialAppServiceGetOrders<
   params?: SpecialAppServiceGetOrdersParams,
   options?: {
     query?: Partial<
-      UseQueryOptions<Awaited<ReturnType<typeof specialAppServiceGetOrders>>, TError, TData>
+      UseQueryOptions<
+        Awaited<ReturnType<typeof specialAppServiceGetOrders>>,
+        TError,
+        TData
+      >
     >;
   },
-  queryClient?: QueryClient
+  queryClient?: QueryClient,
 ): UseQueryResult<TData, TError> & {
   queryKey: DataTag<QueryKey, TData, TError>;
 } {
-  const queryOptions = getSpecialAppServiceGetOrdersQueryOptions(params, options);
+  const queryOptions = getSpecialAppServiceGetOrdersQueryOptions(
+    params,
+    options,
+  );
 
-  const query = useQuery(queryOptions, queryClient) as UseQueryResult<TData, TError> & {
-    queryKey: DataTag<QueryKey, TData, TError>;
-  };
+  const query = useQuery(queryOptions, queryClient) as UseQueryResult<
+    TData,
+    TError
+  > & { queryKey: DataTag<QueryKey, TData, TError> };
 
   query.queryKey = queryOptions.queryKey;
 
@@ -701,7 +840,7 @@ export function useSpecialAppServiceGetOrders<
 
 export const specialAppServiceCreateOrder = (
   specialAppV1CreateOrderRequest: SpecialAppV1CreateOrderRequest,
-  signal?: AbortSignal
+  signal?: AbortSignal,
 ) => {
   return baseApiRequest<SpecialAppServiceCreateOrder200>({
     url: `/v1/orders`,
@@ -730,7 +869,9 @@ export const getSpecialAppServiceCreateOrderMutationOptions = <
 > => {
   const mutationKey = ["specialAppServiceCreateOrder"];
   const { mutation: mutationOptions } = options
-    ? options.mutation && "mutationKey" in options.mutation && options.mutation.mutationKey
+    ? options.mutation &&
+      "mutationKey" in options.mutation &&
+      options.mutation.mutationKey
       ? options
       : { ...options, mutation: { ...options.mutation, mutationKey } }
     : { mutation: { mutationKey } };
@@ -750,10 +891,14 @@ export const getSpecialAppServiceCreateOrderMutationOptions = <
 export type SpecialAppServiceCreateOrderMutationResult = NonNullable<
   Awaited<ReturnType<typeof specialAppServiceCreateOrder>>
 >;
-export type SpecialAppServiceCreateOrderMutationBody = SpecialAppV1CreateOrderRequest;
+export type SpecialAppServiceCreateOrderMutationBody =
+  SpecialAppV1CreateOrderRequest;
 export type SpecialAppServiceCreateOrderMutationError = RpcStatus;
 
-export const useSpecialAppServiceCreateOrder = <TError = RpcStatus, TContext = unknown>(
+export const useSpecialAppServiceCreateOrder = <
+  TError = RpcStatus,
+  TContext = unknown,
+>(
   options?: {
     mutation?: UseMutationOptions<
       Awaited<ReturnType<typeof specialAppServiceCreateOrder>>,
@@ -762,18 +907,22 @@ export const useSpecialAppServiceCreateOrder = <TError = RpcStatus, TContext = u
       TContext
     >;
   },
-  queryClient?: QueryClient
+  queryClient?: QueryClient,
 ): UseMutationResult<
   Awaited<ReturnType<typeof specialAppServiceCreateOrder>>,
   TError,
   { data: SpecialAppV1CreateOrderRequest },
   TContext
 > => {
-  const mutationOptions = getSpecialAppServiceCreateOrderMutationOptions(options);
+  const mutationOptions =
+    getSpecialAppServiceCreateOrderMutationOptions(options);
 
   return useMutation(mutationOptions, queryClient);
 };
-export const specialAppServiceGetOrderInfo = (id: string, signal?: AbortSignal) => {
+export const specialAppServiceGetOrderInfo = (
+  id: string,
+  signal?: AbortSignal,
+) => {
   return baseApiRequest<SpecialAppV1GetOrderInfoResponse>({
     url: `/v1/orders/${id}`,
     method: "GET",
@@ -792,26 +941,33 @@ export const getSpecialAppServiceGetOrderInfoQueryOptions = <
   id: string,
   options?: {
     query?: Partial<
-      UseQueryOptions<Awaited<ReturnType<typeof specialAppServiceGetOrderInfo>>, TError, TData>
+      UseQueryOptions<
+        Awaited<ReturnType<typeof specialAppServiceGetOrderInfo>>,
+        TError,
+        TData
+      >
     >;
-  }
+  },
 ) => {
   const { query: queryOptions } = options ?? {};
 
-  const queryKey = queryOptions?.queryKey ?? getSpecialAppServiceGetOrderInfoQueryKey(id);
+  const queryKey =
+    queryOptions?.queryKey ?? getSpecialAppServiceGetOrderInfoQueryKey(id);
 
-  const queryFn: QueryFunction<Awaited<ReturnType<typeof specialAppServiceGetOrderInfo>>> = ({
-    signal,
-  }) => specialAppServiceGetOrderInfo(id, signal);
+  const queryFn: QueryFunction<
+    Awaited<ReturnType<typeof specialAppServiceGetOrderInfo>>
+  > = ({ signal }) => specialAppServiceGetOrderInfo(id, signal);
 
   return {
     queryKey,
     queryFn,
     enabled: !!id,
     ...queryOptions,
-  } as UseQueryOptions<Awaited<ReturnType<typeof specialAppServiceGetOrderInfo>>, TError, TData> & {
-    queryKey: DataTag<QueryKey, TData, TError>;
-  };
+  } as UseQueryOptions<
+    Awaited<ReturnType<typeof specialAppServiceGetOrderInfo>>,
+    TError,
+    TData
+  > & { queryKey: DataTag<QueryKey, TData, TError> };
 };
 
 export type SpecialAppServiceGetOrderInfoQueryResult = NonNullable<
@@ -826,7 +982,11 @@ export function useSpecialAppServiceGetOrderInfo<
   id: string,
   options: {
     query: Partial<
-      UseQueryOptions<Awaited<ReturnType<typeof specialAppServiceGetOrderInfo>>, TError, TData>
+      UseQueryOptions<
+        Awaited<ReturnType<typeof specialAppServiceGetOrderInfo>>,
+        TError,
+        TData
+      >
     > &
       Pick<
         DefinedInitialDataOptions<
@@ -837,7 +997,7 @@ export function useSpecialAppServiceGetOrderInfo<
         "initialData"
       >;
   },
-  queryClient?: QueryClient
+  queryClient?: QueryClient,
 ): DefinedUseQueryResult<TData, TError> & {
   queryKey: DataTag<QueryKey, TData, TError>;
 };
@@ -848,7 +1008,11 @@ export function useSpecialAppServiceGetOrderInfo<
   id: string,
   options?: {
     query?: Partial<
-      UseQueryOptions<Awaited<ReturnType<typeof specialAppServiceGetOrderInfo>>, TError, TData>
+      UseQueryOptions<
+        Awaited<ReturnType<typeof specialAppServiceGetOrderInfo>>,
+        TError,
+        TData
+      >
     > &
       Pick<
         UndefinedInitialDataOptions<
@@ -859,7 +1023,7 @@ export function useSpecialAppServiceGetOrderInfo<
         "initialData"
       >;
   },
-  queryClient?: QueryClient
+  queryClient?: QueryClient,
 ): UseQueryResult<TData, TError> & {
   queryKey: DataTag<QueryKey, TData, TError>;
 };
@@ -870,10 +1034,14 @@ export function useSpecialAppServiceGetOrderInfo<
   id: string,
   options?: {
     query?: Partial<
-      UseQueryOptions<Awaited<ReturnType<typeof specialAppServiceGetOrderInfo>>, TError, TData>
+      UseQueryOptions<
+        Awaited<ReturnType<typeof specialAppServiceGetOrderInfo>>,
+        TError,
+        TData
+      >
     >;
   },
-  queryClient?: QueryClient
+  queryClient?: QueryClient,
 ): UseQueryResult<TData, TError> & {
   queryKey: DataTag<QueryKey, TData, TError>;
 };
@@ -885,109 +1053,46 @@ export function useSpecialAppServiceGetOrderInfo<
   id: string,
   options?: {
     query?: Partial<
-      UseQueryOptions<Awaited<ReturnType<typeof specialAppServiceGetOrderInfo>>, TError, TData>
+      UseQueryOptions<
+        Awaited<ReturnType<typeof specialAppServiceGetOrderInfo>>,
+        TError,
+        TData
+      >
     >;
   },
-  queryClient?: QueryClient
+  queryClient?: QueryClient,
 ): UseQueryResult<TData, TError> & {
   queryKey: DataTag<QueryKey, TData, TError>;
 } {
-  const queryOptions = getSpecialAppServiceGetOrderInfoQueryOptions(id, options);
+  const queryOptions = getSpecialAppServiceGetOrderInfoQueryOptions(
+    id,
+    options,
+  );
 
-  const query = useQuery(queryOptions, queryClient) as UseQueryResult<TData, TError> & {
-    queryKey: DataTag<QueryKey, TData, TError>;
-  };
+  const query = useQuery(queryOptions, queryClient) as UseQueryResult<
+    TData,
+    TError
+  > & { queryKey: DataTag<QueryKey, TData, TError> };
 
   query.queryKey = queryOptions.queryKey;
 
   return query;
 }
 
-export const specialAppServiceUpdateOrder = (
-  id: string,
-  specialAppServiceUpdateOrderBody: SpecialAppServiceUpdateOrderBody
-) => {
-  return baseApiRequest<SpecialAppV1GetOrderInfoResponse>({
-    url: `/v1/orders/${id}`,
-    method: "PATCH",
-    headers: { "Content-Type": "application/json" },
-    data: specialAppServiceUpdateOrderBody,
-  });
-};
-
-export const getSpecialAppServiceUpdateOrderMutationOptions = <
-  TError = RpcStatus,
-  TContext = unknown,
->(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof specialAppServiceUpdateOrder>>,
-    TError,
-    { id: string; data: SpecialAppServiceUpdateOrderBody },
-    TContext
-  >;
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof specialAppServiceUpdateOrder>>,
-  TError,
-  { id: string; data: SpecialAppServiceUpdateOrderBody },
-  TContext
-> => {
-  const mutationKey = ["specialAppServiceUpdateOrder"];
-  const { mutation: mutationOptions } = options
-    ? options.mutation && "mutationKey" in options.mutation && options.mutation.mutationKey
-      ? options
-      : { ...options, mutation: { ...options.mutation, mutationKey } }
-    : { mutation: { mutationKey } };
-
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof specialAppServiceUpdateOrder>>,
-    { id: string; data: SpecialAppServiceUpdateOrderBody }
-  > = (props) => {
-    const { id, data } = props ?? {};
-
-    return specialAppServiceUpdateOrder(id, data);
-  };
-
-  return { mutationFn, ...mutationOptions };
-};
-
-export type SpecialAppServiceUpdateOrderMutationResult = NonNullable<
-  Awaited<ReturnType<typeof specialAppServiceUpdateOrder>>
->;
-export type SpecialAppServiceUpdateOrderMutationBody = SpecialAppServiceUpdateOrderBody;
-export type SpecialAppServiceUpdateOrderMutationError = RpcStatus;
-
-export const useSpecialAppServiceUpdateOrder = <TError = RpcStatus, TContext = unknown>(
-  options?: {
-    mutation?: UseMutationOptions<
-      Awaited<ReturnType<typeof specialAppServiceUpdateOrder>>,
-      TError,
-      { id: string; data: SpecialAppServiceUpdateOrderBody },
-      TContext
-    >;
-  },
-  queryClient?: QueryClient
-): UseMutationResult<
-  Awaited<ReturnType<typeof specialAppServiceUpdateOrder>>,
-  TError,
-  { id: string; data: SpecialAppServiceUpdateOrderBody },
-  TContext
-> => {
-  const mutationOptions = getSpecialAppServiceUpdateOrderMutationOptions(options);
-
-  return useMutation(mutationOptions, queryClient);
-};
 export const specialAppServiceGetUserEvents = (
-  signal?: AbortSignal
+  params?: SpecialAppServiceGetUserEventsParams,
+  signal?: AbortSignal,
 ) => {
   return baseApiRequest<SpecialAppV1GetUserEventsResponse>({
     url: `/v1/user_events`,
     method: "GET",
+    params,
     signal,
   });
 };
 
 export const getSpecialAppServiceGetUserEventsQueryKey = (
-  params?: SpecialAppServiceGetUserEventsParams
+  params?: SpecialAppServiceGetUserEventsParams,
 ) => {
   return [`/v1/user_events`, ...(params ? [params] : [])] as const;
 };
@@ -999,17 +1104,22 @@ export const getSpecialAppServiceGetUserEventsQueryOptions = <
   params?: SpecialAppServiceGetUserEventsParams,
   options?: {
     query?: Partial<
-      UseQueryOptions<Awaited<ReturnType<typeof specialAppServiceGetUserEvents>>, TError, TData>
+      UseQueryOptions<
+        Awaited<ReturnType<typeof specialAppServiceGetUserEvents>>,
+        TError,
+        TData
+      >
     >;
-  }
+  },
 ) => {
   const { query: queryOptions } = options ?? {};
 
-  const queryKey = queryOptions?.queryKey ?? getSpecialAppServiceGetUserEventsQueryKey(params);
+  const queryKey =
+    queryOptions?.queryKey ?? getSpecialAppServiceGetUserEventsQueryKey(params);
 
-  const queryFn: QueryFunction<Awaited<ReturnType<typeof specialAppServiceGetUserEvents>>> = ({
-    signal,
-  }) => specialAppServiceGetUserEvents(signal);
+  const queryFn: QueryFunction<
+    Awaited<ReturnType<typeof specialAppServiceGetUserEvents>>
+  > = ({ signal }) => specialAppServiceGetUserEvents(params, signal);
 
   return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
     Awaited<ReturnType<typeof specialAppServiceGetUserEvents>>,
@@ -1030,7 +1140,11 @@ export function useSpecialAppServiceGetUserEvents<
   params: undefined | SpecialAppServiceGetUserEventsParams,
   options: {
     query: Partial<
-      UseQueryOptions<Awaited<ReturnType<typeof specialAppServiceGetUserEvents>>, TError, TData>
+      UseQueryOptions<
+        Awaited<ReturnType<typeof specialAppServiceGetUserEvents>>,
+        TError,
+        TData
+      >
     > &
       Pick<
         DefinedInitialDataOptions<
@@ -1041,7 +1155,7 @@ export function useSpecialAppServiceGetUserEvents<
         "initialData"
       >;
   },
-  queryClient?: QueryClient
+  queryClient?: QueryClient,
 ): DefinedUseQueryResult<TData, TError> & {
   queryKey: DataTag<QueryKey, TData, TError>;
 };
@@ -1052,7 +1166,11 @@ export function useSpecialAppServiceGetUserEvents<
   params?: SpecialAppServiceGetUserEventsParams,
   options?: {
     query?: Partial<
-      UseQueryOptions<Awaited<ReturnType<typeof specialAppServiceGetUserEvents>>, TError, TData>
+      UseQueryOptions<
+        Awaited<ReturnType<typeof specialAppServiceGetUserEvents>>,
+        TError,
+        TData
+      >
     > &
       Pick<
         UndefinedInitialDataOptions<
@@ -1063,7 +1181,7 @@ export function useSpecialAppServiceGetUserEvents<
         "initialData"
       >;
   },
-  queryClient?: QueryClient
+  queryClient?: QueryClient,
 ): UseQueryResult<TData, TError> & {
   queryKey: DataTag<QueryKey, TData, TError>;
 };
@@ -1074,10 +1192,14 @@ export function useSpecialAppServiceGetUserEvents<
   params?: SpecialAppServiceGetUserEventsParams,
   options?: {
     query?: Partial<
-      UseQueryOptions<Awaited<ReturnType<typeof specialAppServiceGetUserEvents>>, TError, TData>
+      UseQueryOptions<
+        Awaited<ReturnType<typeof specialAppServiceGetUserEvents>>,
+        TError,
+        TData
+      >
     >;
   },
-  queryClient?: QueryClient
+  queryClient?: QueryClient,
 ): UseQueryResult<TData, TError> & {
   queryKey: DataTag<QueryKey, TData, TError>;
 };
@@ -1089,18 +1211,26 @@ export function useSpecialAppServiceGetUserEvents<
   params?: SpecialAppServiceGetUserEventsParams,
   options?: {
     query?: Partial<
-      UseQueryOptions<Awaited<ReturnType<typeof specialAppServiceGetUserEvents>>, TError, TData>
+      UseQueryOptions<
+        Awaited<ReturnType<typeof specialAppServiceGetUserEvents>>,
+        TError,
+        TData
+      >
     >;
   },
-  queryClient?: QueryClient
+  queryClient?: QueryClient,
 ): UseQueryResult<TData, TError> & {
   queryKey: DataTag<QueryKey, TData, TError>;
 } {
-  const queryOptions = getSpecialAppServiceGetUserEventsQueryOptions(params, options);
+  const queryOptions = getSpecialAppServiceGetUserEventsQueryOptions(
+    params,
+    options,
+  );
 
-  const query = useQuery(queryOptions, queryClient) as UseQueryResult<TData, TError> & {
-    queryKey: DataTag<QueryKey, TData, TError>;
-  };
+  const query = useQuery(queryOptions, queryClient) as UseQueryResult<
+    TData,
+    TError
+  > & { queryKey: DataTag<QueryKey, TData, TError> };
 
   query.queryKey = queryOptions.queryKey;
 
@@ -1109,7 +1239,7 @@ export function useSpecialAppServiceGetUserEvents<
 
 export const specialAppServiceCreateUserEvent = (
   specialAppV1CreateUserEventRequest: SpecialAppV1CreateUserEventRequest,
-  signal?: AbortSignal
+  signal?: AbortSignal,
 ) => {
   return baseApiRequest<SpecialAppServiceCreateUserEvent200>({
     url: `/v1/user_events`,
@@ -1138,7 +1268,9 @@ export const getSpecialAppServiceCreateUserEventMutationOptions = <
 > => {
   const mutationKey = ["specialAppServiceCreateUserEvent"];
   const { mutation: mutationOptions } = options
-    ? options.mutation && "mutationKey" in options.mutation && options.mutation.mutationKey
+    ? options.mutation &&
+      "mutationKey" in options.mutation &&
+      options.mutation.mutationKey
       ? options
       : { ...options, mutation: { ...options.mutation, mutationKey } }
     : { mutation: { mutationKey } };
@@ -1158,10 +1290,14 @@ export const getSpecialAppServiceCreateUserEventMutationOptions = <
 export type SpecialAppServiceCreateUserEventMutationResult = NonNullable<
   Awaited<ReturnType<typeof specialAppServiceCreateUserEvent>>
 >;
-export type SpecialAppServiceCreateUserEventMutationBody = SpecialAppV1CreateUserEventRequest;
+export type SpecialAppServiceCreateUserEventMutationBody =
+  SpecialAppV1CreateUserEventRequest;
 export type SpecialAppServiceCreateUserEventMutationError = RpcStatus;
 
-export const useSpecialAppServiceCreateUserEvent = <TError = RpcStatus, TContext = unknown>(
+export const useSpecialAppServiceCreateUserEvent = <
+  TError = RpcStatus,
+  TContext = unknown,
+>(
   options?: {
     mutation?: UseMutationOptions<
       Awaited<ReturnType<typeof specialAppServiceCreateUserEvent>>,
@@ -1170,18 +1306,22 @@ export const useSpecialAppServiceCreateUserEvent = <TError = RpcStatus, TContext
       TContext
     >;
   },
-  queryClient?: QueryClient
+  queryClient?: QueryClient,
 ): UseMutationResult<
   Awaited<ReturnType<typeof specialAppServiceCreateUserEvent>>,
   TError,
   { data: SpecialAppV1CreateUserEventRequest },
   TContext
 > => {
-  const mutationOptions = getSpecialAppServiceCreateUserEventMutationOptions(options);
+  const mutationOptions =
+    getSpecialAppServiceCreateUserEventMutationOptions(options);
 
   return useMutation(mutationOptions, queryClient);
 };
-export const specialAppServiceGetUserEventInfo = (id: string, signal?: AbortSignal) => {
+export const specialAppServiceGetUserEventInfo = (
+  id: string,
+  signal?: AbortSignal,
+) => {
   return baseApiRequest<SpecialAppV1GetUserEventInfoResponse>({
     url: `/v1/user_events/${id}`,
     method: "GET",
@@ -1200,17 +1340,22 @@ export const getSpecialAppServiceGetUserEventInfoQueryOptions = <
   id: string,
   options?: {
     query?: Partial<
-      UseQueryOptions<Awaited<ReturnType<typeof specialAppServiceGetUserEventInfo>>, TError, TData>
+      UseQueryOptions<
+        Awaited<ReturnType<typeof specialAppServiceGetUserEventInfo>>,
+        TError,
+        TData
+      >
     >;
-  }
+  },
 ) => {
   const { query: queryOptions } = options ?? {};
 
-  const queryKey = queryOptions?.queryKey ?? getSpecialAppServiceGetUserEventInfoQueryKey(id);
+  const queryKey =
+    queryOptions?.queryKey ?? getSpecialAppServiceGetUserEventInfoQueryKey(id);
 
-  const queryFn: QueryFunction<Awaited<ReturnType<typeof specialAppServiceGetUserEventInfo>>> = ({
-    signal,
-  }) => specialAppServiceGetUserEventInfo(id, signal);
+  const queryFn: QueryFunction<
+    Awaited<ReturnType<typeof specialAppServiceGetUserEventInfo>>
+  > = ({ signal }) => specialAppServiceGetUserEventInfo(id, signal);
 
   return {
     queryKey,
@@ -1236,7 +1381,11 @@ export function useSpecialAppServiceGetUserEventInfo<
   id: string,
   options: {
     query: Partial<
-      UseQueryOptions<Awaited<ReturnType<typeof specialAppServiceGetUserEventInfo>>, TError, TData>
+      UseQueryOptions<
+        Awaited<ReturnType<typeof specialAppServiceGetUserEventInfo>>,
+        TError,
+        TData
+      >
     > &
       Pick<
         DefinedInitialDataOptions<
@@ -1247,7 +1396,7 @@ export function useSpecialAppServiceGetUserEventInfo<
         "initialData"
       >;
   },
-  queryClient?: QueryClient
+  queryClient?: QueryClient,
 ): DefinedUseQueryResult<TData, TError> & {
   queryKey: DataTag<QueryKey, TData, TError>;
 };
@@ -1258,7 +1407,11 @@ export function useSpecialAppServiceGetUserEventInfo<
   id: string,
   options?: {
     query?: Partial<
-      UseQueryOptions<Awaited<ReturnType<typeof specialAppServiceGetUserEventInfo>>, TError, TData>
+      UseQueryOptions<
+        Awaited<ReturnType<typeof specialAppServiceGetUserEventInfo>>,
+        TError,
+        TData
+      >
     > &
       Pick<
         UndefinedInitialDataOptions<
@@ -1269,7 +1422,7 @@ export function useSpecialAppServiceGetUserEventInfo<
         "initialData"
       >;
   },
-  queryClient?: QueryClient
+  queryClient?: QueryClient,
 ): UseQueryResult<TData, TError> & {
   queryKey: DataTag<QueryKey, TData, TError>;
 };
@@ -1280,10 +1433,14 @@ export function useSpecialAppServiceGetUserEventInfo<
   id: string,
   options?: {
     query?: Partial<
-      UseQueryOptions<Awaited<ReturnType<typeof specialAppServiceGetUserEventInfo>>, TError, TData>
+      UseQueryOptions<
+        Awaited<ReturnType<typeof specialAppServiceGetUserEventInfo>>,
+        TError,
+        TData
+      >
     >;
   },
-  queryClient?: QueryClient
+  queryClient?: QueryClient,
 ): UseQueryResult<TData, TError> & {
   queryKey: DataTag<QueryKey, TData, TError>;
 };
@@ -1295,18 +1452,26 @@ export function useSpecialAppServiceGetUserEventInfo<
   id: string,
   options?: {
     query?: Partial<
-      UseQueryOptions<Awaited<ReturnType<typeof specialAppServiceGetUserEventInfo>>, TError, TData>
+      UseQueryOptions<
+        Awaited<ReturnType<typeof specialAppServiceGetUserEventInfo>>,
+        TError,
+        TData
+      >
     >;
   },
-  queryClient?: QueryClient
+  queryClient?: QueryClient,
 ): UseQueryResult<TData, TError> & {
   queryKey: DataTag<QueryKey, TData, TError>;
 } {
-  const queryOptions = getSpecialAppServiceGetUserEventInfoQueryOptions(id, options);
+  const queryOptions = getSpecialAppServiceGetUserEventInfoQueryOptions(
+    id,
+    options,
+  );
 
-  const query = useQuery(queryOptions, queryClient) as UseQueryResult<TData, TError> & {
-    queryKey: DataTag<QueryKey, TData, TError>;
-  };
+  const query = useQuery(queryOptions, queryClient) as UseQueryResult<
+    TData,
+    TError
+  > & { queryKey: DataTag<QueryKey, TData, TError> };
 
   query.queryKey = queryOptions.queryKey;
 
@@ -1338,7 +1503,9 @@ export const getSpecialAppServiceDeleteUserEventMutationOptions = <
 > => {
   const mutationKey = ["specialAppServiceDeleteUserEvent"];
   const { mutation: mutationOptions } = options
-    ? options.mutation && "mutationKey" in options.mutation && options.mutation.mutationKey
+    ? options.mutation &&
+      "mutationKey" in options.mutation &&
+      options.mutation.mutationKey
       ? options
       : { ...options, mutation: { ...options.mutation, mutationKey } }
     : { mutation: { mutationKey } };
@@ -1361,7 +1528,10 @@ export type SpecialAppServiceDeleteUserEventMutationResult = NonNullable<
 
 export type SpecialAppServiceDeleteUserEventMutationError = RpcStatus;
 
-export const useSpecialAppServiceDeleteUserEvent = <TError = RpcStatus, TContext = unknown>(
+export const useSpecialAppServiceDeleteUserEvent = <
+  TError = RpcStatus,
+  TContext = unknown,
+>(
   options?: {
     mutation?: UseMutationOptions<
       Awaited<ReturnType<typeof specialAppServiceDeleteUserEvent>>,
@@ -1370,20 +1540,21 @@ export const useSpecialAppServiceDeleteUserEvent = <TError = RpcStatus, TContext
       TContext
     >;
   },
-  queryClient?: QueryClient
+  queryClient?: QueryClient,
 ): UseMutationResult<
   Awaited<ReturnType<typeof specialAppServiceDeleteUserEvent>>,
   TError,
   { id: string },
   TContext
 > => {
-  const mutationOptions = getSpecialAppServiceDeleteUserEventMutationOptions(options);
+  const mutationOptions =
+    getSpecialAppServiceDeleteUserEventMutationOptions(options);
 
   return useMutation(mutationOptions, queryClient);
 };
 export const specialAppServiceUpdateUserEvent = (
   id: string,
-  specialAppServiceUpdateUserEventBody: SpecialAppServiceUpdateUserEventBody
+  specialAppServiceUpdateUserEventBody: SpecialAppServiceUpdateUserEventBody,
 ) => {
   return baseApiRequest<SpecialAppV1GetUserEventInfoResponse>({
     url: `/v1/user_events/${id}`,
@@ -1411,7 +1582,9 @@ export const getSpecialAppServiceUpdateUserEventMutationOptions = <
 > => {
   const mutationKey = ["specialAppServiceUpdateUserEvent"];
   const { mutation: mutationOptions } = options
-    ? options.mutation && "mutationKey" in options.mutation && options.mutation.mutationKey
+    ? options.mutation &&
+      "mutationKey" in options.mutation &&
+      options.mutation.mutationKey
       ? options
       : { ...options, mutation: { ...options.mutation, mutationKey } }
     : { mutation: { mutationKey } };
@@ -1431,10 +1604,14 @@ export const getSpecialAppServiceUpdateUserEventMutationOptions = <
 export type SpecialAppServiceUpdateUserEventMutationResult = NonNullable<
   Awaited<ReturnType<typeof specialAppServiceUpdateUserEvent>>
 >;
-export type SpecialAppServiceUpdateUserEventMutationBody = SpecialAppServiceUpdateUserEventBody;
+export type SpecialAppServiceUpdateUserEventMutationBody =
+  SpecialAppServiceUpdateUserEventBody;
 export type SpecialAppServiceUpdateUserEventMutationError = RpcStatus;
 
-export const useSpecialAppServiceUpdateUserEvent = <TError = RpcStatus, TContext = unknown>(
+export const useSpecialAppServiceUpdateUserEvent = <
+  TError = RpcStatus,
+  TContext = unknown,
+>(
   options?: {
     mutation?: UseMutationOptions<
       Awaited<ReturnType<typeof specialAppServiceUpdateUserEvent>>,
@@ -1443,14 +1620,15 @@ export const useSpecialAppServiceUpdateUserEvent = <TError = RpcStatus, TContext
       TContext
     >;
   },
-  queryClient?: QueryClient
+  queryClient?: QueryClient,
 ): UseMutationResult<
   Awaited<ReturnType<typeof specialAppServiceUpdateUserEvent>>,
   TError,
   { id: string; data: SpecialAppServiceUpdateUserEventBody },
   TContext
 > => {
-  const mutationOptions = getSpecialAppServiceUpdateUserEventMutationOptions(options);
+  const mutationOptions =
+    getSpecialAppServiceUpdateUserEventMutationOptions(options);
 
   return useMutation(mutationOptions, queryClient);
 };
@@ -1471,16 +1649,21 @@ export const getSpecialAppServiceGetUserQueryOptions = <
   TError = RpcStatus,
 >(options?: {
   query?: Partial<
-    UseQueryOptions<Awaited<ReturnType<typeof specialAppServiceGetUser>>, TError, TData>
+    UseQueryOptions<
+      Awaited<ReturnType<typeof specialAppServiceGetUser>>,
+      TError,
+      TData
+    >
   >;
 }) => {
   const { query: queryOptions } = options ?? {};
 
-  const queryKey = queryOptions?.queryKey ?? getSpecialAppServiceGetUserQueryKey();
+  const queryKey =
+    queryOptions?.queryKey ?? getSpecialAppServiceGetUserQueryKey();
 
-  const queryFn: QueryFunction<Awaited<ReturnType<typeof specialAppServiceGetUser>>> = ({
-    signal,
-  }) => specialAppServiceGetUser(signal);
+  const queryFn: QueryFunction<
+    Awaited<ReturnType<typeof specialAppServiceGetUser>>
+  > = ({ signal }) => specialAppServiceGetUser(signal);
 
   return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
     Awaited<ReturnType<typeof specialAppServiceGetUser>>,
@@ -1500,7 +1683,11 @@ export function useSpecialAppServiceGetUser<
 >(
   options: {
     query: Partial<
-      UseQueryOptions<Awaited<ReturnType<typeof specialAppServiceGetUser>>, TError, TData>
+      UseQueryOptions<
+        Awaited<ReturnType<typeof specialAppServiceGetUser>>,
+        TError,
+        TData
+      >
     > &
       Pick<
         DefinedInitialDataOptions<
@@ -1511,7 +1698,7 @@ export function useSpecialAppServiceGetUser<
         "initialData"
       >;
   },
-  queryClient?: QueryClient
+  queryClient?: QueryClient,
 ): DefinedUseQueryResult<TData, TError> & {
   queryKey: DataTag<QueryKey, TData, TError>;
 };
@@ -1521,7 +1708,11 @@ export function useSpecialAppServiceGetUser<
 >(
   options?: {
     query?: Partial<
-      UseQueryOptions<Awaited<ReturnType<typeof specialAppServiceGetUser>>, TError, TData>
+      UseQueryOptions<
+        Awaited<ReturnType<typeof specialAppServiceGetUser>>,
+        TError,
+        TData
+      >
     > &
       Pick<
         UndefinedInitialDataOptions<
@@ -1532,7 +1723,7 @@ export function useSpecialAppServiceGetUser<
         "initialData"
       >;
   },
-  queryClient?: QueryClient
+  queryClient?: QueryClient,
 ): UseQueryResult<TData, TError> & {
   queryKey: DataTag<QueryKey, TData, TError>;
 };
@@ -1542,10 +1733,14 @@ export function useSpecialAppServiceGetUser<
 >(
   options?: {
     query?: Partial<
-      UseQueryOptions<Awaited<ReturnType<typeof specialAppServiceGetUser>>, TError, TData>
+      UseQueryOptions<
+        Awaited<ReturnType<typeof specialAppServiceGetUser>>,
+        TError,
+        TData
+      >
     >;
   },
-  queryClient?: QueryClient
+  queryClient?: QueryClient,
 ): UseQueryResult<TData, TError> & {
   queryKey: DataTag<QueryKey, TData, TError>;
 };
@@ -1556,18 +1751,23 @@ export function useSpecialAppServiceGetUser<
 >(
   options?: {
     query?: Partial<
-      UseQueryOptions<Awaited<ReturnType<typeof specialAppServiceGetUser>>, TError, TData>
+      UseQueryOptions<
+        Awaited<ReturnType<typeof specialAppServiceGetUser>>,
+        TError,
+        TData
+      >
     >;
   },
-  queryClient?: QueryClient
+  queryClient?: QueryClient,
 ): UseQueryResult<TData, TError> & {
   queryKey: DataTag<QueryKey, TData, TError>;
 } {
   const queryOptions = getSpecialAppServiceGetUserQueryOptions(options);
 
-  const query = useQuery(queryOptions, queryClient) as UseQueryResult<TData, TError> & {
-    queryKey: DataTag<QueryKey, TData, TError>;
-  };
+  const query = useQuery(queryOptions, queryClient) as UseQueryResult<
+    TData,
+    TError
+  > & { queryKey: DataTag<QueryKey, TData, TError> };
 
   query.queryKey = queryOptions.queryKey;
 
@@ -1600,7 +1800,9 @@ export const getSpecialAppServiceCreateUserMutationOptions = <
 > => {
   const mutationKey = ["specialAppServiceCreateUser"];
   const { mutation: mutationOptions } = options
-    ? options.mutation && "mutationKey" in options.mutation && options.mutation.mutationKey
+    ? options.mutation &&
+      "mutationKey" in options.mutation &&
+      options.mutation.mutationKey
       ? options
       : { ...options, mutation: { ...options.mutation, mutationKey } }
     : { mutation: { mutationKey } };
@@ -1621,7 +1823,10 @@ export type SpecialAppServiceCreateUserMutationResult = NonNullable<
 
 export type SpecialAppServiceCreateUserMutationError = RpcStatus;
 
-export const useSpecialAppServiceCreateUser = <TError = RpcStatus, TContext = unknown>(
+export const useSpecialAppServiceCreateUser = <
+  TError = RpcStatus,
+  TContext = unknown,
+>(
   options?: {
     mutation?: UseMutationOptions<
       Awaited<ReturnType<typeof specialAppServiceCreateUser>>,
@@ -1630,19 +1835,20 @@ export const useSpecialAppServiceCreateUser = <TError = RpcStatus, TContext = un
       TContext
     >;
   },
-  queryClient?: QueryClient
+  queryClient?: QueryClient,
 ): UseMutationResult<
   Awaited<ReturnType<typeof specialAppServiceCreateUser>>,
   TError,
   void,
   TContext
 > => {
-  const mutationOptions = getSpecialAppServiceCreateUserMutationOptions(options);
+  const mutationOptions =
+    getSpecialAppServiceCreateUserMutationOptions(options);
 
   return useMutation(mutationOptions, queryClient);
 };
 export const specialAppServiceUpdateUser = (
-  specialAppV1UpdateUserRequest: SpecialAppV1UpdateUserRequest
+  specialAppV1UpdateUserRequest: SpecialAppV1UpdateUserRequest,
 ) => {
   return baseApiRequest<SpecialAppV1GetUserInfoResponse>({
     url: `/v1/users`,
@@ -1670,7 +1876,9 @@ export const getSpecialAppServiceUpdateUserMutationOptions = <
 > => {
   const mutationKey = ["specialAppServiceUpdateUser"];
   const { mutation: mutationOptions } = options
-    ? options.mutation && "mutationKey" in options.mutation && options.mutation.mutationKey
+    ? options.mutation &&
+      "mutationKey" in options.mutation &&
+      options.mutation.mutationKey
       ? options
       : { ...options, mutation: { ...options.mutation, mutationKey } }
     : { mutation: { mutationKey } };
@@ -1690,10 +1898,14 @@ export const getSpecialAppServiceUpdateUserMutationOptions = <
 export type SpecialAppServiceUpdateUserMutationResult = NonNullable<
   Awaited<ReturnType<typeof specialAppServiceUpdateUser>>
 >;
-export type SpecialAppServiceUpdateUserMutationBody = SpecialAppV1UpdateUserRequest;
+export type SpecialAppServiceUpdateUserMutationBody =
+  SpecialAppV1UpdateUserRequest;
 export type SpecialAppServiceUpdateUserMutationError = RpcStatus;
 
-export const useSpecialAppServiceUpdateUser = <TError = RpcStatus, TContext = unknown>(
+export const useSpecialAppServiceUpdateUser = <
+  TError = RpcStatus,
+  TContext = unknown,
+>(
   options?: {
     mutation?: UseMutationOptions<
       Awaited<ReturnType<typeof specialAppServiceUpdateUser>>,
@@ -1702,14 +1914,15 @@ export const useSpecialAppServiceUpdateUser = <TError = RpcStatus, TContext = un
       TContext
     >;
   },
-  queryClient?: QueryClient
+  queryClient?: QueryClient,
 ): UseMutationResult<
   Awaited<ReturnType<typeof specialAppServiceUpdateUser>>,
   TError,
   { data: SpecialAppV1UpdateUserRequest },
   TContext
 > => {
-  const mutationOptions = getSpecialAppServiceUpdateUserMutationOptions(options);
+  const mutationOptions =
+    getSpecialAppServiceUpdateUserMutationOptions(options);
 
   return useMutation(mutationOptions, queryClient);
 };

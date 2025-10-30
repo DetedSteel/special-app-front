@@ -6,6 +6,7 @@
  */
 
 export interface SpecialAppV1OrderInfoForList {
+  id?: string;
   number?: number;
   completionDate?: string;
   status?: string;
