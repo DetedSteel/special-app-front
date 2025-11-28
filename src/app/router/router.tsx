@@ -6,12 +6,13 @@ import {
   MainPage,
   OrderPage,
   OrdersListPage,
+  ProductPage,
   ProductsListPage,
   ProfilePage,
   UserEventPage,
   UserEventsListPage,
+  CartPage,
 } from "../pages";
-import { ProductPage } from "../pages/ProductPage/ProductPage";
 
 export const router = createBrowserRouter([
   {
@@ -26,13 +27,13 @@ export const router = createBrowserRouter([
       {
         path: "profile/orders",
         element: <OrdersListPage />,
-        children: [{ path: ":id", element: <OrderPage /> }],
       },
+      { path: "profile/orders/:id", element: <OrderPage /> },
       {
         path: "profile/events",
         element: <UserEventsListPage />,
-        children: [{ path: ":id", element: <UserEventPage /> }],
       },
+      { path: "profile/events/:id", element: <UserEventPage /> },
       {
         path: "products",
         element: <ProductsListPage />,
@@ -45,6 +46,10 @@ export const router = createBrowserRouter([
       {
         path: "events/:id",
         element: <EventPage />,
+      },
+      {
+        path: "cart",
+        element: <CartPage />,
       },
     ],
   },

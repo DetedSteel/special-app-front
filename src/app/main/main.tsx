@@ -3,6 +3,7 @@ import * as ReactDOM from "react-dom/client";
 import { RouterProvider } from "react-router";
 import { router } from "../router/router";
 import { QueryCache, QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import "./index.css";
 
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 
@@ -10,16 +11,15 @@ const client = new QueryClient({
   defaultOptions: {
     queries: {
       staleTime: Infinity,
-      
     },
   },
   queryCache: new QueryCache(),
 });
 
 root.render(
-  <StrictMode>
-    <QueryClientProvider client={client}>
-      <RouterProvider router={router} />
-    </QueryClientProvider>
-  </StrictMode>
+  // <StrictMode>
+  <QueryClientProvider client={client}>
+    <RouterProvider router={router} />
+  </QueryClientProvider>
+  // </StrictMode>
 );

@@ -1,1 +1,12 @@
 export { ProductCard } from "./ProductCard/ProductCard";
+export { OrderCard } from "./OrderCard/OrderCard";
+export { UserEventCard } from "./UserEventCard/UserEventCard";
+export { EventCard } from "./EventCard/EventCard";
+export { EventInfo } from "./EventInfo/EventInfo";
+export { OrderInfo } from "./OrderInfo/OrderInfo";
+export { ProductInfo } from "./ProductInfo/ProductInfo";
+export { UserEventInfo } from "./UserEventInfo/UserEventInfo";
+export { Cart } from "./Cart/Cart";
+export { PictureCarousel } from "./PictureCarousel/PictureCarousel";
+export { ProfileInfo } from "./ProfileInfo/ProfileInfo";
+export { OrderItemCard } from "./OrderItemCard/OrderItemCard";

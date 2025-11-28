@@ -1,16 +1,5 @@
 import type { FC } from "react";
-import { Link } from "react-router";
-import { useSpecialAppServiceGetItems } from "../../../shared/api/generated/query/special-app-service";
 
 export const MainPage: FC = () => {
-  const { data } = useSpecialAppServiceGetItems();
-
-  return (
-    <div>
-      {data?.items?.map((e) => (
-        <Link to={e.id ?? ""}>{e.title}</Link>
-      ))}
-      Main page
-    </div>
-  );
+  return <div className="flex justify-center items-center text-4xl">Добро дожаловать!</div>;
 };
